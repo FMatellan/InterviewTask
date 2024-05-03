@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
 
+    [Header("Movement Variable")]
     [SerializeField]
     float movementSpeed = 1f;
     [SerializeField]
@@ -16,8 +19,12 @@ public class PlayerController : MonoBehaviour
 
     Vector2 movementInput;
     Animator baseAnimator;
+    [Header("Animators")]
     [SerializeField]
     Animator outfitAnimator,hatAnimator;
+    [Header("Inventory")]
+    [SerializeField]
+    GameObject inventoryObj;
 
     Rigidbody2D rb;
 
@@ -96,5 +103,15 @@ public class PlayerController : MonoBehaviour
        Interacted?.Invoke();
     }
 
+    void OnInventory(InputValue inputValue)
+    {
+        if(inventoryObj.activeSelf)
+        inventoryObj.SetActive(false);
+        else
+        {
+            inventoryObj.SetActive(true);
+        }
+        
+    }
     
 }

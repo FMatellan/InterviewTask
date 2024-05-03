@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Iventory",
+                    "name": "Inventory",
                     "type": "Button",
                     "id": "93a572a5-d86d-4081-8c2a-b607b715d1ea",
                     "expectedControlType": "Button",
@@ -290,7 +290,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Iventory",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
