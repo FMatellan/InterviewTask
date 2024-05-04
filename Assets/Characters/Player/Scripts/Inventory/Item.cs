@@ -17,8 +17,6 @@ public class Item
     public ItemType itemType;
     public int amount;
 
-    private int price;
-
     public Sprite GetSprite()
     {
         switch (itemType)

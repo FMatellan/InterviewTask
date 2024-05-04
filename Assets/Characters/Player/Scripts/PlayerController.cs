@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour
 
     void OnInteract(InputValue inputValue)
     {
+        if(inventoryObj.activeSelf) return;
        Interacted?.Invoke();
     }
 
@@ -127,10 +128,12 @@ public class PlayerController : MonoBehaviour
         if(inventoryObj.activeSelf )
         {
             inventoryObj.SetActive(false);
+            inventory.isOpen = false;
         }
         else
         {
             inventoryObj.SetActive(true);
+            inventory.isOpen = true;
             inventory.mode = Inventory.Mode.Browsing;
         }
         

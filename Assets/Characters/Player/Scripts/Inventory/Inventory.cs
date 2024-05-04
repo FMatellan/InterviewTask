@@ -10,6 +10,7 @@ public class Inventory
         Browsing
     }
     public Mode mode;
+    public bool isOpen = false;
     public event EventHandler onItemListChanged;
     public event Action<int> onGoldChanged;
     private List<Item> items = new List<Item>();

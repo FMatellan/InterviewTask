@@ -72,6 +72,8 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
+        if(store.activeSelf) return;
+
         currentStory = new Story(inkJSON.text);
         currentStory.BindExternalFunction("openBuyMenu",OpenBuyMenu);
         currentStory.BindExternalFunction("openSellMenu",OpenSellMenu);
@@ -149,6 +151,7 @@ public class DialogueManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
+        ContinueStory();
         
     }
 

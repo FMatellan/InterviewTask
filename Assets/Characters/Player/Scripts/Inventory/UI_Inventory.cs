@@ -26,7 +26,7 @@ public class UI_Inventory : MonoBehaviour
         DialogueManager.onSellingItems += Inventory_OnSellingItems;
         RefreshInventoryItems();
     }
-    
+
     private void OnEnable() {
         inventory.onItemListChanged += Iventory_OnItemListChanged;
         inventory.onGoldChanged += Invetory_OnGoldChanged;
@@ -46,7 +46,7 @@ public class UI_Inventory : MonoBehaviour
     {
         inventory.mode = Inventory.Mode.Selling;
         gameObject.SetActive(true);
-        Debug.Log("gameobejct is: " + gameObject);
+        inventory.isOpen = true;
     }
 
     public Inventory GetInventory()
