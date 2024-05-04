@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -25,6 +26,12 @@ public class PlayerController : MonoBehaviour
     [Header("Inventory")]
     [SerializeField]
     GameObject inventoryObj;
+    [SerializeField] GameObject storeObj;
+
+    [Header("Animator Controllers")]
+    [SerializeField] AnimatorOverrideController yellowAnimator,blueAnimator,leatherAnimator,wizardAnimator;
+
+    private Inventory inventory;
 
     Rigidbody2D rb;
 
@@ -32,6 +39,12 @@ public class PlayerController : MonoBehaviour
 
     public static event Action Interacted;
 
+
+    private void Awake() {
+        inventory = new Inventory(UseItem);
+        inventoryObj.GetComponent<UI_Inventory>().SetInventory(inventory);
+        storeObj.GetComponent<StoreManager>().SetInventory(inventory);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +67,12 @@ public class PlayerController : MonoBehaviour
                 movementSuccess = TryMove(new Vector2(0, movementInput.y));
             }
         }
+    }
+
+    private void UseItem(Item item)
+    {
+        
+        EquipClothes(item);
     }
 
     private bool TryMove(Vector2 direction)
@@ -89,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue inputValue)
     {
-        if(DialogueManager.GetInstance().dialogueIsPlaying) return;
+        if(DialogueManager.GetInstance().dialogueIsPlaying || inventoryObj.activeSelf ) return;
 
         movementInput = inputValue.Get<Vector2>();
         baseAnimator.SetFloat("Speed", movementInput.sqrMagnitude);
@@ -110,8 +129,29 @@ public class PlayerController : MonoBehaviour
         else
         {
             inventoryObj.SetActive(true);
+
         }
         
+    }
+
+    void EquipClothes(Item item)
+    {
+        switch (item.itemType)
+        {
+            default: return;
+            case Item.ItemType.yellowOutfit: outfitAnimator.runtimeAnimatorController = yellowAnimator;
+            inventory.RemoveItem(new Item{itemType = Item.ItemType.yellowOutfit, amount = 1});
+            break;
+            case Item.ItemType.blueOutfit: outfitAnimator.runtimeAnimatorController = blueAnimator;
+            inventory.RemoveItem(new Item{itemType = Item.ItemType.blueOutfit, amount = 1});
+            break;
+            case Item.ItemType.leatherHat: hatAnimator.runtimeAnimatorController = leatherAnimator;
+            inventory.RemoveItem(new Item{itemType = Item.ItemType.leatherHat, amount = 1});
+            break;
+            case Item.ItemType.wizardHat: hatAnimator.runtimeAnimatorController = wizardAnimator;
+            inventory.RemoveItem(new Item{itemType = Item.ItemType.wizardHat, amount = 1});
+            break;
+        }
     }
     
 }

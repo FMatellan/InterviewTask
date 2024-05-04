@@ -1,3 +1,6 @@
+EXTERNAL openBuyMenu()
+EXTERNAL openSellMenu()
+
 -> Introduction
 
 === Introduction ===
@@ -8,11 +11,13 @@ Well you've come to the right place
 
 ===Choices===
 So what do you need?
-*Buy #buying
+*[Buy] 
     Here's what I have
+    ~openBuyMenu()
 ->End
-*Sell #selling
+*[Sell] 
     What are you selling?
+    ~openSellMenu()
 ->End
 
 ===End===

@@ -21,6 +21,9 @@ public class DialogueManager : MonoBehaviour
     private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
+    [Header("Store Gameobject")]
+    [SerializeField] GameObject store;
+
     private Story currentStory;
     public bool dialogueIsPlaying {get;private set;}
     public bool canStartDialogue {get;private set;}
@@ -64,6 +67,9 @@ public class DialogueManager : MonoBehaviour
     public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
+        currentStory.BindExternalFunction("openBuyMenu",OpenBuyMenu);
+        currentStory.BindExternalFunction("openSellMenu",OpenSellMenu);
+        
         dialogueIsPlaying = true;
         canStartDialogue = false;
         dialoguePanel.SetActive(true);
@@ -95,10 +101,11 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text = currentStory.Continue();
             DisplayChoices();
         }
-        else
+        else if(currentStory.currentChoices.Count == 0)
         {
             ExtiDialogueMode();
         }
+
     }
 
     private void DisplayChoices()
@@ -136,5 +143,17 @@ public class DialogueManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
+        
+    }
+
+    private void OpenBuyMenu()
+    {
+        store.SetActive(true);
+        ExtiDialogueMode();
+    }
+
+    private void OpenSellMenu()
+    {
+
     }
 }
