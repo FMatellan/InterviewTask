@@ -24,6 +24,10 @@ public class DialogueTrigger : MonoBehaviour
         PlayerController.Interacted += OnInteraction;
     }
 
+    private void OnDisable() {
+        PlayerController.Interacted -= OnInteraction;
+    }
+
 
     private void Update() {
         if(playerInRange)

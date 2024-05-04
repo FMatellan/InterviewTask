@@ -17,6 +17,8 @@ public class Item
     public ItemType itemType;
     public int amount;
 
+    private int price;
+
     public Sprite GetSprite()
     {
         switch (itemType)
@@ -29,6 +31,21 @@ public class Item
             case ItemType.wizardHat: return ItemAssets.Instace.wizardHatSprite;
             case ItemType.wood: return ItemAssets.Instace.woodSprite;
             case ItemType.potion: return ItemAssets.Instace.potionSprite;
+        }
+    }
+
+    public int GetPrice()
+    {
+        switch (itemType)
+        {
+
+            default:
+            case ItemType.yellowOutfit: return 50;
+            case ItemType.blueOutfit: return 50;
+            case ItemType.leatherHat: return 20;
+            case ItemType.wizardHat: return 20;
+            case ItemType.wood: return 5;
+            case ItemType.potion: return 100;
         }
     }
 }

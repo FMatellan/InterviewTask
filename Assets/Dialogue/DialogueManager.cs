@@ -29,6 +29,8 @@ public class DialogueManager : MonoBehaviour
     public bool canStartDialogue {get;private set;}
     private static DialogueManager instance;
 
+    public static event Action onSellingItems;
+
     private void Awake() {
         if (instance != null && instance != this)
         {
@@ -53,6 +55,10 @@ public class DialogueManager : MonoBehaviour
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
             index++;
         }
+    }
+
+    private void OnDisable() {
+        PlayerController.Interacted -= ContinueStory;
     }
 
     public static DialogueManager GetInstance()
@@ -154,6 +160,6 @@ public class DialogueManager : MonoBehaviour
 
     private void OpenSellMenu()
     {
-
+        onSellingItems?.Invoke();
     }
 }

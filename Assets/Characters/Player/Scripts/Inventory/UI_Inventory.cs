@@ -23,7 +23,35 @@ public class UI_Inventory : MonoBehaviour
 
         inventory.onItemListChanged += Iventory_OnItemListChanged;
         inventory.onGoldChanged += Invetory_OnGoldChanged;
+        DialogueManager.onSellingItems += Inventory_OnSellingItems;
         RefreshInventoryItems();
+    }
+    
+    private void OnEnable() {
+        inventory.onItemListChanged += Iventory_OnItemListChanged;
+        inventory.onGoldChanged += Invetory_OnGoldChanged;
+        DialogueManager.onSellingItems += Inventory_OnSellingItems;
+        RefreshInventoryItems();
+    }
+
+    private void OnDisable() {
+
+        inventory.onItemListChanged -= Iventory_OnItemListChanged;
+        inventory.onGoldChanged -= Invetory_OnGoldChanged;
+        DialogueManager.onSellingItems -= Inventory_OnSellingItems;
+        
+    }
+
+    private void Inventory_OnSellingItems()
+    {
+        inventory.mode = Inventory.Mode.Selling;
+        gameObject.SetActive(true);
+        Debug.Log("gameobejct is: " + gameObject);
+    }
+
+    public Inventory GetInventory()
+    {
+        return inventory;
     }
 
     private void Invetory_OnGoldChanged(int n)
@@ -53,6 +81,10 @@ public class UI_Inventory : MonoBehaviour
 
             Image image = itemSlotRectTransformed.Find("Item Image").GetComponent<Image>();
             image.sprite = item.GetSprite();
+
+            TextMeshProUGUI costText = itemSlotRectTransformed.Find("Cost").GetComponent<TextMeshProUGUI>();
+            costText.text = item.GetPrice().ToString() + " Gold";
+
             itemSlotRectTransformed.gameObject.SetActive(true);
         }
 
@@ -89,6 +121,11 @@ public class UI_Inventory : MonoBehaviour
     public void UseItem(Item item)
     {
         inventory.UseItem(item);
+    }
+
+    public void SellItem(Item item)
+    {
+        inventory.SellItem(item);
     }
 
 

@@ -124,12 +124,14 @@ public class PlayerController : MonoBehaviour
 
     void OnInventory(InputValue inputValue)
     {
-        if(inventoryObj.activeSelf)
-        inventoryObj.SetActive(false);
+        if(inventoryObj.activeSelf )
+        {
+            inventoryObj.SetActive(false);
+        }
         else
         {
             inventoryObj.SetActive(true);
-
+            inventory.mode = Inventory.Mode.Browsing;
         }
         
     }
